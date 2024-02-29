@@ -32,6 +32,6 @@ public class JobEntity {
     UUID companyID;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_id", insertable = false, updatable = false)
     CompanyEntity company;
 }
