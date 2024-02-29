@@ -1,6 +1,7 @@
 package br.com.rocketseat.job_oportunity_management.modules.company.usecase;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.rocketseat.job_oportunity_management.exceptions.UserFoundException;
@@ -13,12 +14,19 @@ public class CreateCompanyUseCase {
     @Autowired
     CompanyRepository companyRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     public CompanyEntity execute(CompanyEntity company) {
         companyRepository
                 .findByUsernameOrEmail(company.getUsername(), company.getEmail())
                 .ifPresent((user) -> {
                     throw new UserFoundException();
                 });
+
+        var passwordEncoded = passwordEncoder.encode(company.getPassword());
+        company.setPassword(passwordEncoded);
+
         return companyRepository.save(company);
     }
 
