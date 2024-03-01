@@ -1,5 +1,8 @@
 package br.com.rocketseat.job_oportunity_management.modules.company.usecase;
 
+import java.time.Duration;
+import java.time.Instant;
+
 import javax.naming.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +43,12 @@ public class AuthCompanyUseCase {
         }
 
         var algorithm = Algorithm.HMAC256(secretKey);
+        var momentToExpire = Instant.now().plus(Duration.ofHours(2));
 
         return JWT.create()
                 .withIssuer("javagas")
                 .withSubject(company.getId().toString())
+                .withExpiresAt(momentToExpire)
                 .sign(algorithm);
     }
 }
