@@ -3,6 +3,9 @@ package br.com.rocketseat.job_oportunity_management.security;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -27,16 +30,26 @@ public class SecurityCandidateFilter extends OncePerRequestFilter {
             var authenticationToken = request.getHeader("Authorization");
             if (authenticationToken != null) {
 
-                var decodedJET = jwtCandidateProvider.validateToken(authenticationToken);
-                if (decodedJET == null) {
+                var decodedJWT = jwtCandidateProvider.validateToken(authenticationToken);
+                if (decodedJWT == null) {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     return;
                 }
 
-                request.setAttribute("candidate_id", decodedJET.getSubject());
+                request.setAttribute("candidate_id", decodedJWT.getSubject());
 
-                var roles = decodedJET.getClaim("roles");
+                var roles = decodedJWT
+                        .getClaim("roles")
+                        .asList(Object.class);
 
+                var grants = roles
+                        .stream()
+                        .map(role -> new SimpleGrantedAuthority("ROLE_" + role.toString()))
+                        .toList();
+
+                var contextAuth = new UsernamePasswordAuthenticationToken(decodedJWT.getSubject(), null, grants);
+
+                SecurityContextHolder.getContext().setAuthentication(contextAuth);
             }
         }
         filterChain.doFilter(request, response);
