@@ -2,6 +2,7 @@ package br.com.rocketseat.job_oportunity_management.modules.company.usecase;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
 
 import javax.naming.AuthenticationException;
 
@@ -15,6 +16,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
 import br.com.rocketseat.job_oportunity_management.modules.company.dto.AuthCompanyDTO;
+import br.com.rocketseat.job_oportunity_management.modules.company.dto.AuthCompanyResponseDTO;
 import br.com.rocketseat.job_oportunity_management.modules.company.repository.CompanyRepository;
 
 @Service
@@ -29,7 +31,7 @@ public class AuthCompanyUseCase {
     @Value("${security.token.secret}")
     String secretKey;
 
-    public String execute(AuthCompanyDTO userCompany) throws AuthenticationException {
+    public AuthCompanyResponseDTO execute(AuthCompanyDTO userCompany) throws AuthenticationException {
         var exceptionPhrase = "username/password incorrect";
         var company = companyRepository
                 .findByUsername(userCompany.getUsername())
@@ -43,12 +45,21 @@ public class AuthCompanyUseCase {
         }
 
         var algorithm = Algorithm.HMAC256(secretKey);
-        var momentToExpire = Instant.now().plus(Duration.ofHours(2));
+        var momentToExpire = Instant.now().plus(Duration.ofHours(2L));
 
-        return JWT.create()
+        var jwt = JWT.create()
                 .withIssuer("javagas")
                 .withSubject(company.getId().toString())
                 .withExpiresAt(momentToExpire)
+                .withClaim("roles", Arrays.asList("COMPANY"))
                 .sign(algorithm);
+
+        var response = AuthCompanyResponseDTO
+                .builder()
+                .access_token(jwt)
+                .expires_in(momentToExpire.toEpochMilli())
+                .build();
+
+        return response;
     }
 }
