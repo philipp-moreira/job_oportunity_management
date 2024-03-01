@@ -15,6 +15,9 @@ public class SecurityConfig {
     @Autowired
     SecurityFilter securityFilter;
 
+    @Autowired
+    SecurityCandidateFilter securityCandidateFilter;
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -24,10 +27,11 @@ public class SecurityConfig {
                             .requestMatchers("/candidate").permitAll()
                             .requestMatchers("/candidate/auth").permitAll()
                             .requestMatchers("/company").permitAll()
-                            .requestMatchers("/auth/company").permitAll()
+                            .requestMatchers("/company/auth").permitAll()
                             .anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, BasicAuthenticationFilter.class)
+                .addFilterBefore(securityCandidateFilter, BasicAuthenticationFilter.class)
                 .build();
 
     }

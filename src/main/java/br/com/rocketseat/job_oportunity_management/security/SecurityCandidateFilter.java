@@ -22,20 +22,23 @@ public class SecurityCandidateFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String authenticationToken = request.getHeader("Authorization");
+        if (request.getRequestURI().startsWith("/candidate")) {
 
-        if (authenticationToken != null) {
+            var authenticationToken = request.getHeader("Authorization");
+            if (authenticationToken != null) {
 
-            var decodedJET = jwtCandidateProvider.validateToken(authenticationToken);
-            if (decodedJET == null) {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                return;
+                var decodedJET = jwtCandidateProvider.validateToken(authenticationToken);
+                if (decodedJET == null) {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    return;
+                }
+
+                request.setAttribute("candidate_id", decodedJET.getSubject());
+
+                var roles = decodedJET.getClaim("roles");
+
             }
-
-            request.setAttribute("candidate_id", decodedJET.getSubject());
-
         }
-
         filterChain.doFilter(request, response);
     }
 }
