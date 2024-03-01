@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthCandidateResponseDTO {
     String access_token;
+    long expires_in;
 }
