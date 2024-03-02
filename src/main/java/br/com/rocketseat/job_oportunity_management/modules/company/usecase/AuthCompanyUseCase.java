@@ -23,13 +23,13 @@ import br.com.rocketseat.job_oportunity_management.modules.company.repository.Co
 public class AuthCompanyUseCase {
 
     @Autowired
-    CompanyRepository companyRepository;
+    private CompanyRepository companyRepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Value("${security.token.secret}")
-    String secretKey;
+    private String secretKey;
 
     public AuthCompanyResponseDTO execute(AuthCompanyDTO userCompany) throws AuthenticationException {
         var exceptionPhrase = "username/password incorrect";

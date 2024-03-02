@@ -20,23 +20,23 @@ import lombok.Data;
 public class CompanyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    UUID id;
+    private UUID id;
 
-    String name;
+    private String name;
 
     @Pattern(regexp = "^\\S*$", message = "must don't have blank spaces.")
     @NotBlank
-    String username;
+    private String username;
 
     @Email(message = "The attribute must be have a valid e-mail.")
-    String email;
+    private String email;
 
     @Length(min = 10, max = 100)
-    String password;
+    private String password;
 
-    String webSite;
-    String description;
+    private String webSite;
+    private String description;
 
     @CreationTimestamp
-    LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 }

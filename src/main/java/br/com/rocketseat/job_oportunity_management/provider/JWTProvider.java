@@ -12,7 +12,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 public class JWTProvider {
 
     @Value("${security.token.secret}")
-    String secretKey;
+    private String secretKey;
 
     public DecodedJWT validateToken(String contentFromAuthorization) {
         var token = contentFromAuthorization.replace("Bearer ", "");

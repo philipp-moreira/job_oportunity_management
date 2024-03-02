@@ -21,7 +21,7 @@ import jakarta.validation.Valid;
 public class JobController {
 
     @Autowired
-    CreateJobUseCase createJobUseCase;
+    private CreateJobUseCase createJobUseCase;
 
     @PostMapping
     @PreAuthorize("hasRole('COMPANY')")

@@ -23,13 +23,13 @@ import br.com.rocketseat.job_oportunity_management.modules.candidate.dto.AuthCan
 public class AuthCandidateUseCase {
 
     @Value("${security.token.secret.candidate}")
-    String secretKey;
+    private String secretKey;
 
     @Autowired
-    CandidateRepository candidateRepository;
+    private CandidateRepository candidateRepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     public AuthCandidateResponseDTO execute(AuthCandidateRequestDTO candidateRequest) throws AuthenticationException {
         var phraseException = "username/password incorrect";

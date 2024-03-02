@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SecurityCandidateFilter extends OncePerRequestFilter {
 
     @Autowired
-    JWTCandidateProvider jwtCandidateProvider;
+    private JWTCandidateProvider jwtCandidateProvider;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

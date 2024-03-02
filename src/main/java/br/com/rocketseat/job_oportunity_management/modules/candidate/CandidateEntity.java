@@ -16,25 +16,25 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-@Entity(name= "candidate")
+@Entity(name = "candidate")
 public class CandidateEntity {
     @Id
-    @GeneratedValue(strategy=GenerationType.UUID)
-    UUID id;
-    String name;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    private String name;
 
     @Pattern(regexp = "^\\S*$", message = "must don't have blank spaces.")
     @NotBlank
-    String username;
+    private String username;
 
     @Email(message = "The attribute must be have a valid e-mail.")
-    String email;
+    private String email;
 
     @Length(min = 10, max = 100)
-    String password;
-    String description;
-    String curriculum;
+    private String password;
+    private String description;
+    private String curriculum;
 
     @CreationTimestamp
-    protected LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 }

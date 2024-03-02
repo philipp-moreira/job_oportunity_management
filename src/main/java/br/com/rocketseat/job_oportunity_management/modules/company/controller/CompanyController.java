@@ -16,7 +16,7 @@ import jakarta.validation.Valid;
 public class CompanyController {
 
     @Autowired
-    CreateCompanyUseCase createCompanyUseCase;
+    private CreateCompanyUseCase createCompanyUseCase;
 
     @PostMapping
     public ResponseEntity<Object> create(@Valid @RequestBody CompanyEntity company) {

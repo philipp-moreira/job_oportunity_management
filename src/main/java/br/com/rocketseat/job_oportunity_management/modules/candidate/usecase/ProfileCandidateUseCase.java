@@ -13,7 +13,7 @@ import br.com.rocketseat.job_oportunity_management.modules.candidate.dto.Profile
 public class ProfileCandidateUseCase {
 
     @Autowired
-    CandidateRepository candidateRepository;
+    private CandidateRepository candidateRepository;
 
     public ProfileCandidateResponseDTO execute(UUID candidateId) {
         var candidate = candidateRepository

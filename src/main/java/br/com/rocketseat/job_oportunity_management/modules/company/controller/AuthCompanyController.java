@@ -16,7 +16,7 @@ import br.com.rocketseat.job_oportunity_management.modules.company.usecase.AuthC
 public class AuthCompanyController {
 
     @Autowired
-    AuthCompanyUseCase authCompanyUseCase;
+    private AuthCompanyUseCase authCompanyUseCase;
 
     @PostMapping("/auth")
     public ResponseEntity<Object> auth(@RequestBody AuthCompanyDTO company) {

@@ -22,10 +22,10 @@ import jakarta.validation.Valid;
 public class CandidateController {
 
     @Autowired
-    CreateCandidateUseCase createCandidateUseCase;
+    private CreateCandidateUseCase createCandidateUseCase;
 
     @Autowired
-    ProfileCandidateUseCase profileCandidateUseCase;
+    private ProfileCandidateUseCase profileCandidateUseCase;
 
     @PostMapping
     public ResponseEntity<Object> create(@Valid @RequestBody CandidateEntity candidate) {

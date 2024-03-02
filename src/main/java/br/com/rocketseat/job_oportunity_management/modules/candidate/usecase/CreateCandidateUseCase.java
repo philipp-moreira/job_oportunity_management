@@ -12,10 +12,10 @@ import br.com.rocketseat.job_oportunity_management.modules.candidate.CandidateRe
 public class CreateCandidateUseCase {
 
     @Autowired
-    CandidateRepository candidateRepository;
+    private CandidateRepository candidateRepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     public CandidateEntity execute(CandidateEntity candidate) {
         candidateRepository

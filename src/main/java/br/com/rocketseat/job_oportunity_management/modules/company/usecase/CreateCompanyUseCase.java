@@ -12,10 +12,10 @@ import br.com.rocketseat.job_oportunity_management.modules.company.repository.Co
 public class CreateCompanyUseCase {
 
     @Autowired
-    CompanyRepository companyRepository;
+    private CompanyRepository companyRepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     public CompanyEntity execute(CompanyEntity company) {
         companyRepository

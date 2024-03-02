@@ -12,7 +12,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 public class JWTCandidateProvider {
 
     @Value("${security.token.secret.candidate}")
-    String secretKey;
+    private String secretKey;
 
     public DecodedJWT validateToken(String tokenJWTRaw) {
         try {

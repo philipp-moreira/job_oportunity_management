@@ -16,7 +16,7 @@ import br.com.rocketseat.job_oportunity_management.modules.candidate.usecase.Aut
 public class AuthCandidateController {
 
     @Autowired
-    AuthCandidateUseCase authCandidateUseCase;
+    private AuthCandidateUseCase authCandidateUseCase;
 
     @PostMapping("/auth")
     public ResponseEntity<Object> auth(@RequestBody AuthCandidateRequestDTO candidate) {

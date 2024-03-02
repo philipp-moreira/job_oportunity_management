@@ -10,7 +10,7 @@ import br.com.rocketseat.job_oportunity_management.modules.company.repository.Jo
 public class CreateJobUseCase {
 
     @Autowired
-    JobRepository jobRepository;
+    private JobRepository jobRepository;
 
     public JobEntity execute(JobEntity job) {
         return jobRepository.save(job);

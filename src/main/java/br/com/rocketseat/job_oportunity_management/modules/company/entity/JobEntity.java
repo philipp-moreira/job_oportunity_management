@@ -27,21 +27,21 @@ public class JobEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    UUID id;
+    private UUID id;
 
     @NotBlank
-    String level;
+    private String level;
 
-    String benefits;
-    String description;
+    private String benefits;
+    private String description;
 
     @CreationTimestamp
-    LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "company_id", nullable = false)
-    UUID companyID;
+    private UUID companyID;
 
     @ManyToOne
     @JoinColumn(name = "company_id", insertable = false, updatable = false)
-    CompanyEntity company;
+    private CompanyEntity company;
 }

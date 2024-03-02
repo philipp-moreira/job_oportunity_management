@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfileCandidateResponseDTO {
-    UUID id;
-    String name;
-    String username;
-    String email;
-    String description;
+    private UUID id;
+    private String name;
+    private String username;
+    private String email;
+    private String description;
 }
